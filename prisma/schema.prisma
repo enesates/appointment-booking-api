@@ -23,4 +23,7 @@ model slots {
   booked           Boolean        @default(false)
   sales_manager_id Int
   sales_managers   sales_managers @relation(fields: [sales_manager_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([start_date])
+  @@index([end_date])
 }
