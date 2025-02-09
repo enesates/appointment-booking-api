@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model sales_managers {
+  id               Int      @id @default(autoincrement())
+  name             String   @db.VarChar(250)
+  languages        String[] @db.VarChar(100)
+  products         String[] @db.VarChar(100)
+  customer_ratings String[] @db.VarChar(100)
+  slots            slots[]
+}
+
+model slots {
+  id               Int            @id @default(autoincrement())
+  start_date       DateTime       @db.Timestamptz(6)
+  end_date         DateTime       @db.Timestamptz(6)
+  booked           Boolean        @default(false)
+  sales_manager_id Int
+  sales_managers   sales_managers @relation(fields: [sales_manager_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
