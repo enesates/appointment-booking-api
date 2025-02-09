@@ -99,8 +99,6 @@ describe("Coding challenge calendar tests", () => {
         async (_, test_data) => {
             const response = await axios.post("http://localhost:3000/calendar/query", test_data.input);
             expect(response.status).toBe(200);
-            console.log(response.data, test_data.expectedResult)
-
             expect(response.data.length).toBe(test_data.expectedResult.length);
 
             for (let i = 0; i < test_data.expectedResult.length; i++) {
