@@ -1,7 +1,7 @@
 import prisma from "../db/prisma";
 import { AvailableSlot } from "../types/appointmentTypes";
 
-export const getAvailableAppointments = async (date: string, products: string[], language: string, rating: string): Promise<AvailableSlot[]> => {
+export const getAvailableSlots = async (date: string, products: string[], language: string, rating: string): Promise<AvailableSlot[]> => {
   const availableSlots: {[k: string]: AvailableSlot} = {};
 
   const startOfDay = new Date(date);

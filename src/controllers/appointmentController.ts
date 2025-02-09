@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { getAvailableAppointments } from "../services/appointmentService";
+import { getAvailableSlots } from "../services/appointmentService";
 import { AvailableSlot, AppointmentQuerySchema } from "../types/appointmentTypes";
 
 
-export const getAvailableAppointmentsHandler = async (req: Request, res: Response): Promise<void> => {
+export const getAvailableSlotsHandler = async (req: Request, res: Response): Promise<void> => {
   const validationResult = AppointmentQuerySchema.safeParse(req.body);
 
   if (!validationResult.success) {
@@ -14,7 +14,7 @@ export const getAvailableAppointmentsHandler = async (req: Request, res: Respons
   const { date, products, language, rating } = validationResult.data;
     
   try {
-    let availableSlots: AvailableSlot[] = await getAvailableAppointments(date, products, language, rating);
+    let availableSlots: AvailableSlot[] = await getAvailableSlots(date, products, language, rating);
     res.json(availableSlots);
   } catch (error) {
     console.error("Internal server error:", error);

@@ -1,8 +1,8 @@
 import express from "express";
-import { getAvailableAppointmentsHandler } from "../controllers/appointmentController";
+import { getAvailableSlotsHandler } from "../controllers/appointmentController";
 
 const router = express.Router();
 
-router.post("/query", getAvailableAppointmentsHandler);
+router.post("/query", getAvailableSlotsHandler);
 
 export default router;
