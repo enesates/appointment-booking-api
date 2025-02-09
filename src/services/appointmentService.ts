@@ -1,39 +1,15 @@
-import prisma from "../db/prisma";
-import { AvailableSlot } from "../types/appointmentTypes";
+import { getSalesManagersWithSlots } from "../db/db.helper";
+import { AvailableSlot, SalesManagerWithSlots } from "../types/appointmentTypes";
 
 export const getAvailableSlots = async (date: string, products: string[], language: string, rating: string): Promise<AvailableSlot[]> => {
+  const salesManagersWithSlots: SalesManagerWithSlots[] = await getSalesManagersWithSlots(date, products, language, rating);
   const availableSlots: {[k: string]: AvailableSlot} = {};
 
-  const startOfDay = new Date(date);
-  startOfDay.setUTCHours(0, 0, 0, 0);
+  salesManagersWithSlots.forEach((manager) => {
+    if (!manager.slots || manager.slots.length === 0) {
+      return;
+    }
 
-  const endOfDay = new Date(date);
-  endOfDay.setUTCHours(23, 59, 59, 999);
-  
-  const salesManagers = await prisma.sales_managers.findMany({
-    where: {
-      languages: { has: language },
-      products: { hasEvery: products },
-      customer_ratings: { has: rating },
-    },
-    include: {
-      slots: {
-        where: {
-          start_date: {
-            gte: startOfDay,
-          },
-          end_date: {
-            lte: endOfDay,
-          },
-        },
-        orderBy:{
-          start_date: 'asc',
-        }
-      },
-    },
-  });
-
-  salesManagers.forEach((manager) => {
     let bookedUntil: Date = manager.slots[0].booked ? manager.slots[0].end_date : manager.slots[0].start_date;
 
     manager.slots.forEach((slot, i) => {
