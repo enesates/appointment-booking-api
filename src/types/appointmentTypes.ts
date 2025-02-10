@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { sales_managers, slots } from "@prisma/client";
+import { slots } from "@prisma/client";
 
 export const AppointmentQuerySchema = z.object({
   date: z.string().date(),
@@ -13,4 +13,4 @@ export interface AvailableSlot {
   start_date: string;
 }
 
-export type SalesManagerWithSlots = sales_managers & { slots: slots[] };
+export type SalesManagerWithSlots = { slots: Omit<slots, "id" | "sales_manager_id">[] };

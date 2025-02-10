@@ -8,7 +8,7 @@ export const getSalesManagersWithSlots = async (date: string, products: string[]
   startOfDay.setUTCHours(0, 0, 0, 0);
   
   const endOfDay = new Date(date);
-  endOfDay.setUTCHours(23, 59, 59, 999);
+  endOfDay.setUTCHours(23, 59, 59);
   
   try {
     salesManagersWithSlots = await prisma.sales_managers.findMany({
@@ -17,19 +17,18 @@ export const getSalesManagersWithSlots = async (date: string, products: string[]
         products: { hasEvery: products },
         customer_ratings: { has: rating },
       },
-      include: {
+      select: {
         slots: {
-          where: {
-            start_date: {
-              gte: startOfDay,
-            },
-            end_date: {
-              lte: endOfDay,
-            },
+          select: {
+            start_date: true,
+            end_date: true,
+            booked: true,
           },
-          orderBy:{
-            start_date: 'asc',
-          }
+          where: {
+            start_date: { gte: startOfDay },
+            end_date: { lte: endOfDay },
+          },
+          orderBy: { start_date: 'asc' },
         },
       },
     });
