@@ -13,4 +13,5 @@ export interface AvailableSlot {
   start_date: string;
 }
 
-export type SalesManagerWithSlots = { slots: Omit<slots, "id" | "sales_manager_id">[] };
+export type Slot = Omit<slots, "id" | "sales_manager_id">;
+export type SalesManagerWithSlots = { slots: Slot[] };
