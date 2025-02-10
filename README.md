@@ -3,9 +3,9 @@
 This is a backend API for an appointment booking system. The API allows customers to query available appointment slots with sales managers based on language, product interest, and customer rating.
 
 ## Prerequisites
-- Node.js (20+) and npm
+- Node.js (20+)
+- npm
 - Docker
-- Prisma ORM
 
 ## Installation
 
