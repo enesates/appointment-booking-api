@@ -21,25 +21,22 @@ This is a backend API for an appointment booking system. The API allows customer
   ```sh
   npm install
   ```
-3. Create a `.env` file and set the database connection (update with the actual credentials):
+3. Create a `.env` file and set the database connection and update the postgres credentials with the actual values:
   ```sh
   DATABASE_URL="postgres://username:password@localhost:5432/postgres"
+  POSTGRES_DB=POSTGRES_DB
+  POSTGRES_USER=POSTGRES_USER
+  POSTGRES_PASSWORD=POSTGRES_PASSWORD
   ```
 
-4. Run the following commands in the `database` folder:
+4. Run the following commands to setup the database:
   ```sh
-  docker build -t enpal-coding-challenge-db .
-  docker run --name enpal-coding-challenge-db -p 5432:5432 -d enpal-coding-challenge-db
+  docker compose up --build -d
   ```
 
-5. Generate Prisma client in the main folder:
+5. Generate Prisma client:
   ```sh
   npx prisma generate
-  ```
-
-6. (Optional) Pull database schema if using an existing database:
-  ```sh
-  npx prisma db pull
   ```
 
 ### Running the API
