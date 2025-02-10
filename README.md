@@ -2,15 +2,12 @@
 
 This is a backend API for an appointment booking system. The API allows customers to query available appointment slots with sales managers based on language, product interest, and customer rating.
 
-## Getting Started
-
-### Prerequisites
-- Node.js (20+)
+## Prerequisites
+- Node.js (20+) and npm
 - Docker
-- npm (or another package manager like Yarn)
 - Prisma ORM
 
-### Installation
+## Installation
 
 1. Clone the repository:
   ```sh
@@ -21,7 +18,7 @@ This is a backend API for an appointment booking system. The API allows customer
   ```sh
   npm install
   ```
-3. Create a `.env` file and set the database connection and update the postgres credentials with the actual values:
+3. Create a `.env` file, set the database connection and update the postgres credentials with the actual values:
   ```sh
   DATABASE_URL="postgres://username:password@localhost:5432/postgres"
   POSTGRES_DB=POSTGRES_DB
@@ -29,7 +26,7 @@ This is a backend API for an appointment booking system. The API allows customer
   POSTGRES_PASSWORD=POSTGRES_PASSWORD
   ```
 
-4. Run the following commands to setup the database:
+4. Setup the database:
   ```sh
   docker compose up --build -d
   ```
@@ -39,13 +36,17 @@ This is a backend API for an appointment booking system. The API allows customer
   npx prisma generate
   ```
 
-### Running the API
+6. Then start the API:
+  ```sh
+  npm run build
+  npm run start
+  ```
 
-Then start the API:
-```sh
-npm run build
-npm run start
-```
+7. (Optional) Run the tests in `tests` folder:
+  ```sh
+  npm install
+  npm run test
+  ```
 
 ## API Usage
 - **URL:** `POST http://localhost:3000/calendar/query`
@@ -65,10 +66,3 @@ npm run start
     { "available_count": 1, "start_date": "2024-05-03T12:00:00.00Z" }
   ]
   ```
-
-## Running Tests
-Ensure the API is running, then execute in `tests` folder:
-```sh
-npm install
-npm run test
-```
